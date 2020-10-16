@@ -1,0 +1,366 @@
+
+
+<section class="vizEach_content" data-category="<%= data[mpNum].category %>" data-title="<%= data[mpNum].title %>" data-type="<%= data[mpNum].type %>s">
+  <div class="vizEach_content_title">
+    <h1 class="text"><%= data[mpNum].title %> (<%= data[mpNum].year %>)</h1>
+    <div class="hinder"></div>
+  </div>
+  
+  <div class="vizEach_content_visframe">
+    <div id="<%= data[mpNum].file %>" class="vizEach_content_visframe_canvas"><!-- datavis comes here --></div>
+    <%# Only for "map" visualizations %>
+    <% if (data[mpNum].file.indexOf("mp") !== -1) { %> <%# if the name of file contains "mp" %>
+    <div class="mp-layers" aria-hidden="true">
+      <ul class="mp-layers_list" id="on<%= data[mpNum].file %>"></ul>
+    </div>
+
+    <%# selection for air quality data %>
+    /*
+    <% if (data[mpNum].file == "mp5") { %>
+    <div id="mp5filter" class="filter-general" aria-hidden="false">
+    <% } else { %>
+    <div id="mp5filter" class="filter-general" aria-hidden="true">
+    <% } %>
+      <div class="filter-general_select">
+        <select id="mp5select">
+          <option value="PM1">PM1</option>
+          <option value="PM2.5">PM2.5</option>
+          <option value="PM10">PM10</option>
+          <option value="UFP">UFP</option>
+          <option value="Ozone">Ozone</option>
+          <option value="NO2">NO2</option>
+        </select>
+        <div class="filter-arrow"></div>
+      </div>
+    </div>
+    */
+
+    <div class="map_legend" id="<%= data[mpNum].file %>-legend" aria-hidden="false">
+    <%# add by js %>
+
+      <% if (data[mpNum].file == "mp1") { %>
+
+      <span class="map_legend_title">Legend (%)</span>
+      <table class="map_legend_table">
+        <col width="16">
+        <col width="">
+        <tr class="value4 row">
+          <td class="box"></td>
+          <td class="text">70 < 80</td>
+        </tr>
+        <tr class="value3 row">
+          <td class="box"></td>
+          <td class="text">60 < 70</td>
+        </tr>
+        <tr class="value2 row">
+          <td class="box"></td>
+          <td class="text">50 < 60</td>
+        </tr>
+        <tr class="value1 row">
+          <td class="box"></td>
+          <td class="text">40 < 50</td>
+        </tr>
+        <tr class="noData row">
+          <td class="box"></td>
+          <td class="text">No data</td>
+        </tr>
+      </table>
+
+      <% } else if (data[mpNum].file == "mp3") { %>
+      <span class="map_legend_title">Legend (Type)</span>
+      <table class="map_legend_table">
+        <col width="16">
+        <col width="">
+        <tr class="value7 row">
+          <td class="box"></td>
+          <td class="text">Allotments</td>
+        </tr>
+        <tr class="value6 row">
+          <td class="box"></td>
+          <td class="text">Farm</td>
+        </tr>
+        <tr class="value5 row">
+          <td class="box"></td>
+          <td class="text">Forest</td>
+        </tr>
+        <tr class="value4 row">
+          <td class="box"></td>
+          <td class="text">Grass</td>
+        </tr>
+        <tr class="value3 row">
+          <td class="box"></td>
+          <td class="text">Meadow</td>
+        </tr>
+        <tr class="value2 row">
+          <td class="box"></td>
+          <td class="text">Orchard</td>
+        </tr>
+        <tr class="value1 row">
+          <td class="box"></td>
+          <td class="text">Park</td>
+        </tr>
+        <tr class="noData row">
+          <td class="box"></td>
+          <td class="text">Not Identified</td>
+        </tr>
+      </table>
+      
+      /*
+      <% } else if (data[mpNum].file == "mp5") { %>
+      <div class="content"></div>
+      <div class="labels">
+        <span class="labels_low">Low</span>
+        <span class="labels_mod">Moderate</span>
+        <span class="labels_high">High</span>
+      </div>
+      <% } %>
+      */
+
+    </div>
+
+    <%# Ends-Only for "map" visualizations %>
+    <% } %>
+
+    <div id="<%= data[mpNum].file %>-loader" class="loader" aria-hidden="false">
+      <span class="loader_spin" style="background-image: url(<%= img %>loader.png)"></span>
+    </div>
+    
+  </div><!-- vizEach_content_visframe -->
+  
+  <div class="vizEach_content_info">
+    <ul class="vizEach_content_info_cont">
+      <li class="vizEach_content_info_cont_contributor">
+        <!-- <div class="descHinder"></div> -->
+        <div class="post">
+          <span class="post_title">Posted on</span>
+          <span class="post_date"><%= moment(data[mpNum].created).format('ll') %></span> <%# Need to use moment here...%>
+        </div>
+        <div class="user">
+          <div class="user_cont">
+            <span class="user_cont_image">
+              <%# TODO: consider different extensions %>
+              <span class="avatar-s" style="background-image: url(<%= avtimg %>user.png)"></span>
+              <%# data[mpNum].contributor.avatar %>
+            </span>
+            <span class="user_cont_text"><%= data[mpNum].contributor.name %> (<%= data[mpNum].contributor.organization %>)</span>
+          </div>
+        </div>
+        <div class="contact">
+          <div class="contact_emil" aria-disabled="true">
+            <%# add action here later %>
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+      </li>
+
+      <li class="vizEach_content_info_cont_desc">
+        <div class="desc-head">
+          <!-- <i class="far fa-file-alt"></i> -->
+          <span class="text">Description</span>
+        </div>
+        <div class="desc-cont">
+          <%= data[mpNum].description %>
+        </div>
+      </li>
+      <li class="vizEach_content_info_cont_utility">
+
+        <div class="access">
+          <span class="access_icon">
+            <i class="fas fa-globe"></i>
+          </span>
+          <span class="access_text">Public</span>
+        </div>
+        <%# add download later %>
+        
+        <a href="<%= dt %><%= data[mpNum].file %>.<%= data[mpNum].format %>" class="link-download" download="<%= data[mpNum]._id %>" >
+          <div class="icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <div class="format">
+            <span class="format_header">Format: </span>
+            <span class="format_name"><%= data[mpNum].format %></span>
+          </div>
+        </a>
+        <button id="printSingleDataviz" class="print">
+          <i class="fas fa-print"></i>
+          <span class="text">Print</span>
+        </button>
+      </li>
+      <li class="vizEach_content_info_cont_source">
+        <span class="header">Source</span>
+        <span class="content"><%= data[mpNum].source %></span>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="vizEach_content_comments">
+    <div class="vizEach_content_comments_title">
+      <div class="icon">
+        <i class="fas fa-comments"></i>
+      </div>
+      <span class="text">Comments</span>
+    </div>
+
+    <div class="vizEach_content_comments_post">
+      <textarea class="write-comments" type="text" name="write-comments" placeholder="Write comments..." / ></textarea>
+      <div class="buttonarea">
+        <button class="post-comments basic-button">Post</button>
+        <button class="cancel-comments">Cancel</button>
+      </div>
+    </div>
+    
+    <ul class="vizEach_content_comments_history">
+      <li class="vizEach_content_comments_history_each">
+        <span class="post-user">Admin</span>
+        <span class="post-date">20:02 Sep 21, 2019</span>
+        <span class="post-cont">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla posuere ullamcorper mauris sed tincidunt. Sed elit ex, pharetra vitae condimentum eu, convallis id ligula. Quisque sem turpis, dignissim vel magna eu, eleifend ornare lectus. </span>
+      </li>
+    </ul>
+
+  </div>
+
+
+</section>
+
+<!-- data each side control panel -->
+<aside class="vizEach_side">
+  <div class="vizEach_side_layers">
+    <div class="vizEach_side_layers_title">
+      <i class="fas fa-layer-group"></i>
+      <span class="title">Data Layers</span>
+    </div>
+    <div class="vizEach_side_layers_base">
+      <span class="title">Base data</span>
+      <span class="baseData"><%= data[mpNum].title %> (<%= data[mpNum].year %>)</span>
+    </div>
+    <div class="vizEach_side_layers_options">
+      <div class="vizEach_side_layers_options_title">
+        Layering options
+      </div>
+      <ul class="vizEach_side_layers_options_content">
+        <li id="mp1OverlaySelect" class="vizEach_side_layers_options_content_each">
+          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
+            <input id="mp1Overlay-input" type="checkbox">
+            <label for="mp1Overlay-input"><%= data[mp1Num].title%> (<%= data[mp1Num].year %>)</label>
+          </div>
+          <div class="vizEach_side_layers_options_content_each_legend">
+            <div class="legend-controller" aria-selected="false">
+              <i class="legend-arrow fas fa-angle-right"></i>
+              <span class="legend-title">Legend (%)</span>
+            </div>
+             
+            <table id="mp1-legend" class="legend-table" aria-hidden="true">
+              <col width="16">
+              <col width="">
+              <tr class="value4 row">
+                <td class="box"></td>
+                <td class="text">70 < 80</td>
+              </tr>
+              <tr class="value3 row">
+                <td class="box"></td>
+                <td class="text">60 < 70</td>
+              </tr>
+              <tr class="value2 row">
+                <td class="box"></td>
+                <td class="text">50 < 60</td>
+              </tr>
+              <tr class="value1 row">
+                <td class="box"></td>
+                <td class="text">40 < 50</td>
+              </tr>
+              <tr class="noData row">
+                <td class="box"></td>
+                <td class="text">No data</td>
+              </tr>
+            </table>
+          </div>
+        </li>
+        <li id="mp2OverlaySelect" class="vizEach_side_layers_options_content_each">  
+          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
+            <input id="mp2Overlay-input" type="checkbox">
+            <label for="mp2Overlay-input"><%= data[mp2Num].title%> (<%= data[mp2Num].year %>)</label>
+          </div>
+        </li>
+        <li id="mp3OverlaySelect" class="vizEach_side_layers_options_content_each">
+          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
+            <input id="mp3Overlay-input" type="checkbox">
+            <label for="mp3Overlay-input"><%= data[mp3Num].title%> (<%= data[mp3Num].year %>)</label>
+          </div>
+          <div class="vizEach_side_layers_options_content_each_legend">
+            <div class="legend-controller" aria-selected="false">
+              
+              <i class="legend-arrow fas fa-angle-right"></i>
+            
+              <span class="legend-title">Legend (Type)</span>
+            </div>
+             
+            <table id="mp3-legend" class="legend-table" aria-hidden="true">
+                <col width="16">
+                <col width="">
+                <tr class="value7 row">
+                  <td class="box"></td>
+                  <td class="text">Allotments</td>
+                </tr>
+                <tr class="value6 row">
+                  <td class="box"></td>
+                  <td class="text">Farm</td>
+                </tr>
+                <tr class="value5 row">
+                  <td class="box"></td>
+                  <td class="text">Forest</td>
+                </tr>
+                <tr class="value4 row">
+                  <td class="box"></td>
+                  <td class="text">Grass</td>
+                </tr>
+                <tr class="value3 row">
+                  <td class="box"></td>
+                  <td class="text">Meadow</td>
+                </tr>
+                <tr class="value2 row">
+                  <td class="box"></td>
+                  <td class="text">Orchard</td>
+                </tr>
+                <tr class="value1 row">
+                  <td class="box"></td>
+                  <td class="text">Park</td>
+                </tr>
+                <tr class="noData row">
+                  <td class="box"></td>
+                  <td class="text">Not Identified</td>
+                </tr>
+              </table>
+          </div>
+        </li>
+        <li id="mp4OverlaySelect" class="vizEach_side_layers_options_content_each">
+          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
+            <input id="mp4Overlay-input" type="checkbox">
+            <label for="mp4Overlay-input"><%= data[mp4Num].title%> (<%= data[mp4Num].year %>)</label>
+          </div>
+        </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+  <div class="vizEach_side_analysis">
+    <div class="vizEach_side_analysis_title">
+      <i class="fas fa-calculator"></i>
+      <span class="title">Data Analysis</span>
+    </div>
+    <div class="vizEach_side_analysis_tools">
+      <ul class="vizEach_side_analysis_tools_box">
+        <li class="dummy"></li>
+        <li class="dummy"></li>
+        <li class="dummy"></li>
+      </ul>
+    </div>
+  </div>
+</aside>
+
+<script> 
+  const printSingleDataviz = document.getElementById('printSingleDataviz');
+  printSingleDataviz.addEventListener('click', () => {
+    window.print();
+  });
+</script>

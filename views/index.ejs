@@ -1,0 +1,369 @@
+<%- include('partials/header') %>
+
+  <!-- Tooltips for the owner controlled data: mp(map), ln(line)...-->
+  <!-- TODO: Loop -->
+  <div class="mp1-tooltip data-tooltip" aria-hidden="true"></div>
+  <div class="ln1-tooltip data-tooltip" aria-hidden="true"></div>
+  <div class="mp2-tooltip data-tooltip" aria-hidden="true"></div>
+  <div class="mp3-tooltip data-tooltip" aria-hidden="true"></div>
+  <div class="mp4-tooltip data-tooltip" aria-hidden="true"></div>
+  <div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
+
+  <main class="main">
+    <h1 class="main_title">Vitality Data Catalog</h1>
+    <p class="main_desc"></p>
+    <div class="main_dashboard grid-wrapper">
+      <div class="main_dashboard_controls filter-controls">
+
+        <div class="main_dashboard_controls_search control">
+          <div class="control-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <input class="search-field form-control" type="text" name="search" placeholder="Search..." />
+        </div>
+
+        <div class="main_dashboard_controls_filter control">
+          <div class="control-icon">
+            <i class="fas fa-filter"></i>
+          </div>
+
+          <div class="main_dashboard_controls_filter_select">
+            <select class="filter-field1 form-control custom-select1">
+              <option value="" selected>All Categories</option>
+              <!-- TODO: Loop -->
+              <option value="Demographic">Demographic</option>
+              <option value="Environment">Environment</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Health">Health</option>
+              <option value="Social">Social</option>
+              <option value="Sports">Sports</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="filter-arrow"></div>
+          </div>
+          <div class="main_dashboard_controls_filter_select">
+            <select class="filter-field2 form-control custom-select1">
+              <option value="" selected>All Types</option>
+              <option value="Visualizations">Visualizations</option>
+              <option value="Datasets">Datasets</option>
+              <option value="Reports">Reports</option>
+              <option value="Web Pages">Web Pages</option>
+              <option value="Image/Graphics">Images/Graphics</option>
+              <option value="Videos">Videos</option>
+              <option value="Documents">Documents</option>
+              <option value="Others">Others</option>
+            </select>
+            <div class="filter-arrow"></div>
+          </div>
+
+           <div class="main_dashboard_controls_filter_select">
+            <select class="filter-field3 form-control custom-select1">
+              <option value="" selected>All Age Groups</option>
+              <option value="0-11">0-11</option>
+              <option value="0-18">0-18</option>
+              <option value="12-18">12-18</option>
+              <option value="19-64">19-64</option>
+              <option value="12+">12+</option>
+              <option value="19+">19+</option>
+              <option value="65+">65+</option>
+            </select>
+            <div class="filter-arrow"></div>
+          </div>
+
+        </div>
+        
+      </div>
+      <!-- Local data modals -->
+      <!-- Bennekel -->
+      <!--  <div id="Bennekel-modal" aria-hidden="true">
+          <div id="Bennekel-modal_inner">
+            <h2 class="title">Barriers for sports/exercise in Bennekel</h2>
+            <span class="close" id="Bennekel-modal-close">
+                <i class="fas fa-times"></i>
+            </span>
+          </div>
+      </div> -->
+      <div class="main_dashboard_container grid">
+        
+        <!-- data cards -->
+        
+        <!-- repeat the process by the number of dataset in metadata -->
+        <% for(let i = 0; i < data.length; i++) { %>
+        
+        <%# If data is publicly accessible... %>
+        <% if (data[i].access == "Public") { %>
+        <section class="item" data-category="<%= data[i].category %>" data-title="<%= data[i].title %>" data-type="<%= data[i].type %>s" data-age="<%= data[i].age_group %>">
+          <div class="dataCard">
+            <div class="dataCard_item">
+              <div class="dataCard_item_title title-drag">
+                <% if (data[i].file.indexOf("mp") !== -1) { %>
+                <a href="./visualizations/<%= data[i]._id %>">
+                  <h2 class="text"><%= data[i].title %> (<%= data[i].year %>)</h2>
+                </a>
+                <% } else { %>
+                  <h2 class="text"><%= data[i].title %> (<%= data[i].year %>)</h2>
+                <% } %>
+                <div class="hinder"></div>
+                <div class="icon">
+                  <% if (data[i].type == "Visualization") { %>
+                  <i class="fas fa-eye"></i>
+                  <% } else if (data[i].type == "Link" || data[i].type == "Web Page" || data[i].type == "Image/Graphic") { %>
+                  <i class="fas fa-link"></i>
+                  <% } else { %>
+                  <i class="fas fa-database"></i>
+                  <% } %>
+                </div>
+              </div>
+              <%# Only for visualizations %>
+              <% if (data[i].type == "Visualization") { %>
+              <div id="<%= data[i].file %>" class="dataCard_item_canvas"><!-- datavis comes here --></div>
+              
+              <%# Only for "map" visualizations %>
+              <% if (data[i].file.indexOf("mp") !== -1) { %> <%# if the name of file contains "mp" %>
+              <div class="mp-layers" aria-hidden="true">
+              <ul class="mp-layers_list" id="on<%= data[i].file %>"></ul>
+            </div>
+            <div id="<%= data[i].file %>-loader" class="loader" aria-hidden="false">
+              <span class="loader_spin" style="background-image: url(<%= img %>loader.png)"></span>
+            </div>
+            <div class="map_legend" id="<%= data[i].file %>-legend" aria-hidden="false">
+              <%# add by js %>
+
+              <% if (data[i].file == "mp1") { %>
+
+              <span class="map_legend_title">Legend (%)</span>
+              <table class="map_legend_table">
+                <col width="16">
+                <col width="">
+                <tr class="value4 row">
+                  <td class="box"></td>
+                  <td class="text">70 < 80</td>
+                </tr>
+                <tr class="value3 row">
+                  <td class="box"></td>
+                  <td class="text">60 < 70</td>
+                </tr>
+                <tr class="value2 row">
+                  <td class="box"></td>
+                  <td class="text">50 < 60</td>
+                </tr>
+                <tr class="value1 row">
+                  <td class="box"></td>
+                  <td class="text">40 < 50</td>
+                </tr>
+                <tr class="noData row">
+                  <td class="box"></td>
+                  <td class="text">No data</td>
+                </tr>
+              </table>
+
+              <% } else if (data[i].file == "mp3") { %>
+
+              <span class="map_legend_title">Legend (Type)</span>
+              <table class="map_legend_table">
+                <col width="16">
+                <col width="">
+                <tr class="value7 row">
+                  <td class="box"></td>
+                  <td class="text">Allotments</td>
+                </tr>
+                <tr class="value6 row">
+                  <td class="box"></td>
+                  <td class="text">Farm</td>
+                </tr>
+                <tr class="value5 row">
+                  <td class="box"></td>
+                  <td class="text">Forest</td>
+                </tr>
+                <tr class="value4 row">
+                  <td class="box"></td>
+                  <td class="text">Grass</td>
+                </tr>
+                <tr class="value3 row">
+                  <td class="box"></td>
+                  <td class="text">Meadow</td>
+                </tr>
+                <tr class="value2 row">
+                  <td class="box"></td>
+                  <td class="text">Orchard</td>
+                </tr>
+                <tr class="value1 row">
+                  <td class="box"></td>
+                  <td class="text">Park</td>
+                </tr>
+                <tr class="noData row">
+                  <td class="box"></td>
+                  <td class="text">Not Identified</td>
+                </tr>
+              </table>
+
+              <% } else if (data[i].file == "mp5") { %>
+
+              <div class="content"></div>
+              <div class="labels">
+                <span class="labels_low">Low</span>
+                <span class="labels_mod">Moderate</span>
+                <span class="labels_high">High</span>
+              </div>
+
+              <% } %>
+
+            </div>
+            
+            <%# selection for air quality data %>
+            <% if (data[i].file == "mp5") { %>
+            <div id="mp5filter" class="filter-general">
+              <div class="filter-general_select">
+                <select id="mp5select">
+                  <option value="PM1">PM1</option>
+                  <option value="PM2.5">PM2.5</option>
+                  <option value="PM10">PM10</option>
+                  <option value="UFP">UFP</option>
+                  <option value="Ozone">Ozone</option>
+                  <option value="NO2">NO2</option>
+                </select>
+                <div class="filter-arrow"></div>
+              </div>
+            </div>
+            <% } %>
+
+            <%# Ends-Only for "map" visualizations %>
+            <% } %>
+       
+            <i class="dataCard_item_infoBtn fas fa-info-circle fa-lg" aria-selected="false"></i>
+        
+            <%# Ends-Only for visualizations %>
+            <% } %>
+            <%# Different size for visualization cards and aria-hidden for default %>
+            <% if (data[i].type == 'Visualization') { %>
+
+            <div class="dataCard_item_info visualization" aria-hidden="true">
+
+            <% } else { %>
+            
+            <div class="dataCard_item_info" aria-hidden="false">
+            
+            <% } %>
+                
+                <ul class="dataCard_item_info_cont">
+
+                  <%# description %>
+                  <li class="dataCard_item_info_cont_desc">
+
+                    <% if (data[i].type != 'Visualization') { %>
+                    <div class="descImage">
+                      
+                      <%# TODO: consider different extensions %>
+                      <% if (data[i].image != "") { %>
+                      <span class="descImage_inner" style="background-image: url(<%= dtimg %><%= data[i].image %>.png)"></span>
+                      <% } else { %>
+
+                        <% if (data[i].type == "link") { %>
+                        <span class="descImage_inner" style="background-image: url(<%= dtimg %>link.png)"></span>
+                        <% } else if (data[i].type == "dataset") { %>
+                        <span class="descImage_inner" style="background-image: url(<%= dtimg %>dataset.png)"></span>
+                        <% } %>
+
+                     <% } %>
+                    
+                    </div>
+                    <% } %>
+
+                    <%= data[i].description %>
+                    
+                  </li>
+                  
+                  <%# contributor %>
+                  <li class="dataCard_item_info_cont_contributor">
+                    <div class="descHinder"></div>
+                    <div class="post">
+                      <span class="post_title">Posted on</span>
+                      <span class="post_date"><%= moment(data[i].created).format('ll') %></span> <%# Need to use moment here...%>
+                    </div>
+                    <div class="user">
+                      <span class="user_image">
+
+                        <%# TODO: consider different extensions %>
+                       
+                        <span class="avatar-s" style="background-image: url(<%= avtimg %>user.png)"></span>
+                       
+                      </span>
+
+                      <span class="user_text">Organization's name</span>
+
+                      <div class="hinder"></div>
+                    </div>
+                  </li>
+                  <%# action %>
+                  <li class="dataCard_item_info_cont_action">
+                    <div class="dataCard_item_info_cont_action_left">
+                      <div class="access">
+                        <span class="access_icon">
+                          <i class="fas fa-globe"></i>
+                        </span>
+                        <span class="access_text">Public</span>
+                      </div>
+                      <%# add download later %>
+                      
+                      <% if (data[i].type == "Link" || data[i].type == "Web Page" || data[i].type == "Image/Graphic") {%>
+                      <a href="<%= data[i].file %>" class="link-download" target="_blank">
+                        <div class="icon">
+                          <i class="fa fa-external-link-alt"></i>
+                        </div>
+                      <% } else { %>
+                      <a href="<%= dt %><%= data[i].file %>.<%= data[i].format %>" class="link-download" download="<%= data[i]._id %>" >
+                        <div class="icon">
+                          <i class="fas fa-download"></i>
+                        </div>
+                      <% } %>
+                        <div class="format">
+                          <span class="format_header">Format: </span>
+                          <span class="format_name"><%= data[i].format %></span>
+                        </div>
+                      </a>
+
+                    </div>
+                    <div class="dataCard_item_info_cont_action_right">
+                      <div class="contact" aria-disabled="true">
+                        <%# add action here later %>
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                    </div>
+                    <div class="hinder"></div>
+                  </li>
+                  <%# source %>
+                  <li class="dataCard_item_info_cont_source">
+                    <span class="header">Source:</span>
+                    <span class="content"><%= data[i].source %></span>
+                    <span class="hinder"></span>
+                  </li>
+                </ul>
+              </div>
+              </div><!-- dataCard_item -->
+            </div>
+          </section>
+          <%# Close  the condition if data has a public access %>
+          <% } %>
+          <%# Forloop ends %>
+          
+          <% } %>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', ()=> {
+        mp1(11, 51.46, 5.450);
+        mp2(11, 51.46, 5.450);
+        mp3(11, 51.46, 5.450);
+        mp4(11, 51.46, 5.450);
+        //mp5(11, 51.46, 5.450);
+        ln1(11, 51.46, 5.450);
+      });
+
+    </script>
+    <!-- javascripts -->
+    <script src="<%= js %>main.js"></script>
+    <script src="<%= js %>visualization.js"></script>
+
+<%- include('partials/footer') %>

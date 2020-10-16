@@ -1,0 +1,69 @@
+.l-header {
+  &_content {
+    padding-right: 24px;
+    padding-left: 24px;
+    background: $vll-orange;
+    height: 70px;
+    position: relative;
+    &_left {
+      width: 220px;
+	  //background: #fff;
+      border-bottom: 70px solid #fff;
+      border-right: 56px solid transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      > a {
+        position: absolute;
+        top: 6px;
+        left: 24px;
+      }
+    }
+    &_right {
+      padding-left: 200px;
+      height: 70px;
+      #dataSystem-title {
+        font-family: $dataSystem-title;
+        color: #fff;
+        font-size: 26px;
+        font-weight: bold;
+        width: auto;
+        display: inline-block;
+        margin-top: 20px;
+      }
+      &_options {
+        display: inline-block;
+        height: 30px;
+        width: auto;
+        float: right;
+        margin-top: 22px;
+        a {
+          text-decoration: none;
+        }
+        .control-icon {
+          color: #fff;
+          margin-left: 8px;
+          .fa-user-circle {
+            font-size: 24px;
+            vertical-align: middle;
+            opacity: 1;
+            transition: opacity 0.4s;
+            &:hover {
+              cursor: pointer;
+              opacity: 0.8;
+              transition: opacity 0.4s;
+            }
+		      }
+          .fa-bars {
+            vertical-align: middle;//
+          }
+		    }
+        .user-name {
+          text-decoration: none;
+          color: #fff;
+          vertical-align: middle;
+        }
+	    }
+    }
+  }
+}

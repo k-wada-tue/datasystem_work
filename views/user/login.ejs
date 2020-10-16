@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+    <form action="" method="post" class="login">
+
+      <div class="login_input">
+
+        <h1 class="title">User log in</h1>
+        <label for="email" class="inputTitle"><b>Email</b></label>
+        <input type="text" placeholder="Enter email address" name="email" required>
+        <div class="login_input_errorMsg" style="margin-bottom: 12px;"><%= messageUser %></div>
+
+        <label for="password" class="inputTitle"><b>Password</b></label>
+        <input type="password" placeholder="Enter password" name="password" required>
+        <div class="login_input_errorMsg"><%= messagePassword %></div>
+
+        <button type="submit" class="basic-button blue" style="margin-top: 24px;">Log in</button>
+        <% /*  <label class="rememberme">
+          <input type="checkbox" checked="" name="remember"> Remember me
+        </label> */ %>
+
+        <div class="login_input_errorMsg" style="margin-top: 12px;"><%= messageError %></div>
+      </div>
+      
+      <div class="login_alt">
+        <% /* <a href="#" type="button" class="login_alt_cancel">Cancel</a>
+        <span class="login_alt_sep">&nbsp;|&nbsp;</span>
+        <a href="#" class="login_alt_cancel">Forgot password?</a> */ %>
+        
+        <span class="login_alt_signin">No account yet? Please
+          <a href="/user/signup" type="button" class="login_alt_cancel" style="text-decoration:underline">sign in</a>
+          </span>
+      </div>
+
+      <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
+    </form>
+    
+    <script src="<%= js %>main.js"></script>
+       
+<%- include('../partials/footer') %>

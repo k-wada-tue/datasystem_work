@@ -1,0 +1,57 @@
+* {
+  -webkit-font-smoothing: antialiased; //work around for font-weight bold in chrome
+}
+
+body {
+  font-family: $sans-regular;
+  color: $black;
+	//svg d3 chart
+  stroke-linejoin:  round;
+  stroke-linecap: round;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+[aria-hidden = "true"] {
+  visibility: hidden;
+  animation: hide 0.5s linear;
+  opacity:0;
+  transition:opacity 0.5s linear;
+}
+
+[aria-hidden = "false"] {
+  visibility: visible;
+  animation: show 0.2s linear;
+}
+
+[aria-disabled = "true"] {
+  color: $l-gray;
+  i {
+    color: $l-gray;
+  }
+}
+
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+// input[type="submit"], input[type="reset"]
+
+ul {
+  list-style:none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+

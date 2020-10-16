@@ -1,0 +1,21 @@
+.l-footer {
+  height: 40px;
+  width: 100%;
+  background: $black;
+  margin-top: auto;
+  &_left {
+    display: inline-block;
+    width: auto;
+    height: 24px;
+    padding: 8px 0 8px 24px;
+    &_copyright {
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  &_right {
+    display: inline-block;
+    width: auto;
+  }
+}

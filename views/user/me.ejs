@@ -1,0 +1,124 @@
+<%- include('../partials/header') %>
+  <h1 style="text-align: center; font-weight: lighter; font-size: 24px; color:#f37021;">
+    <%= username %>'s Profile Page (Personal Dashboard)
+  </h1>
+  <div class="dataUpload">
+    
+    <h2 class="dataUpload_title">Metadata Upload Form</h2>
+    
+    <div class="dataUpload_card">
+      <form action="", method="post" class="dataUpload_card_form">
+      
+      <div class="form-group">    
+        <input type="text" name="dataTitle" required>
+        <label for="dataTitle" class="control-label" placeholder="">Title *</label><i class="bar"></i>
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="YYYY or YYYY-YYYY (e.g. 2000-2029)" name="dataYear" required>
+        <label for="dataYear" class="control-label" >Year *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+        <textarea name="dataDesc" required></textarea>
+        <label for="dataDesc" class="control-label">Description *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+        
+        <select name="dataAgeGroup" required>
+          <option name="All" value="All" >All</option>
+          <option name="0-11" value="0-11">0-11</option>
+          <option name="0-18" value="0-18">0-18</option>
+          <option name="12-18" value="12-18">12-18</option>
+          <option name="19-64" value="19-64">19-64</option>
+          <option name="12+" value="12+">12+</option>
+          <option name="19+" value="19+">19+</option>
+          <option name="65+" value="65+">65+</option>
+          <option name="N/A" value="N/A">N/A</option>
+        </select>
+        <label for="dataAgeGroup" class="control-label">Age group of data *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+        
+        <select name="dataCateg" required>
+          <option name="Demographic" value="Demographic">Demographic</option>
+          <option name="Environment" value="Environment">Environment</option>
+          <option name="Infrastructure" value="Infrastructure">Infrastructure</option>
+          <option name="Health" value="Health">Health</option>
+          <option name="Social" value="Social">Social</option>
+          <option name="Sports" value="Sports">Sports</option>
+          <option name="Others" value="Others">Others</option>
+        </select>
+        <label for="dataCateg" class="control-label">Category *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+       
+        <select name="dataType" required>
+          <option name="Dataset" value="Dataset">Dataset</option>
+          <option name="Report" value="Report">Report</option>
+          <option name="Webpage" value="Webpage">Web Page</option>
+          <option name="Visualization" value="Visualization">Image/Graphic</option>
+          <option name="Video" value="Video">Video</option>
+          <option name="Document" value="Document">Document</option>
+          <option name="Others" value="Others">Others</option>
+        </select>
+        <label for="dataType" class="control-label">Type *</label><i class="bar"></i>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" placeholder="CSV etc. (CSV/PDF/... for multiple formats)" name="dataFormat" required>
+        <label for="dataFormat" class="control-label" >Format *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="dataSource" required>
+        <label for="dataSource" class="control-label" placeholder="">Source *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="dataLink">
+        <label for="dataLink" class="control-label" placeholder="">Link URL *</label><i class="bar"></i>
+      </div>
+
+      <div class="form-title">Placeholder Image for Data *optional (Not working yet)</div>
+      <div class="file-upload">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span class="file-upload_text">Drag and drop an image here or click</span>
+      </div>
+
+      <div class="form-title">Access Permission *</div>
+      <div class="form-radio" style="margin-top: 24px;">
+        <div class="radio">
+          <label>
+            <input type="radio" name="dataAccess" value="Public" checked="checked"><i class="helper"></i>Public (Data is shared in public)
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="dataAccess" value="Private"><i class="helper"></i>Private (Data is only accessed by you)
+          </label>
+        </div>
+      </div>
+      <div class="form-title">Data Upload (Not working yet)</div>
+      <div class="file-upload">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span class="file-upload_text">Drag and drop a file here or click</span>
+      </div>
+      
+      <div class="button-container">
+        <button type="submit" class="basic-button blue">Upload metadata</button>
+      </div>
+    </form>
+    
+  </div>
+ 
+</div>
+  
+
+    
+<!-- javascripts -->
+<script src="<%= js %>main.js"></script>
+       
+<%- include('../partials/footer') %>

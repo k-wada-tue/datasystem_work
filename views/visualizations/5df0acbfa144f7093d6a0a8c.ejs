@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+	<div class="mp1-tooltip data-tooltip" aria-hidden="true"></div>
+    <div class="ln1-tooltip data-tooltip" aria-hidden="true"></div>
+    <div class="mp2-tooltip data-tooltip" aria-hidden="true"></div>
+    <div class="mp3-tooltip data-tooltip" aria-hidden="true"></div>
+    <div class="mp4-tooltip data-tooltip" aria-hidden="true"></div>
+    <div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
+
+<main class="vizEach">
+	<% let mp1Num; %>
+	<% let mp2Num; %>
+	<% let mp3Num; %>
+	<% let mp4Num; %>
+	<%# let mp5Num; %>
+	<% let mpNum; %>
+	<% for(let i = 0; i < data.length; i++) {  %>
+	      <% if (data[i]._id == "5de59e378da07a1aafe0ddf4") { %>
+	    <% mp1Num = i; %>
+	    <% } else if (data[i]._id == "5deed118b14cc01493360222") { %>
+	    <% mp2Num = i; %>
+	    <% } else if (data[i]._id == "5df0acbfa144f7093d6a0a8c") { %>
+	    <% mp3Num = i; mpNum = i; %>
+	     <% } else if (data[i]._id == "5df0aef161ba510966339670") { %>
+	    <% mp4Num = i; %>
+	    <%# } else if (data[i]._id == "5dfcd0fcd91a5709e379fbe9") { %>
+	    <%# mp5Num = i; %>
+	    <% } %>
+	<% } %>
+	<%- include('./commons/visContainer', {mp1Num: mp1Num, mp2Num: mp2Num, mp3Num:mp3Num, mp4Num:mp4Num, mpNum:mpNum}) %> 
+	<!-- remove mp5Num:mp5Num for now -->
+</main>
+<!-- javascripts -->
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', ()=> { 
+	//mp5(12, 51.445, 5.450, false, true); //open csocket io & mp5 is presented
+	mpOverlay ('mp3', 'mp3OverlayCont', 'Gray', 12, 51.445, 5.450);
+});
+
+</script>
+
+<script src="<%= js %>main.js"></script>
+<script src="<%= js %>visualization.js"></script>
+
+<%- include('../partials/footer') %>
+

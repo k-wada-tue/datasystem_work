@@ -1,0 +1,419 @@
+// scss-lint:disable IdSelector, ColorVariable, LeadingZero, PropertySortOrder, EmptyLineBetweenBlocks, NestingDepth, TrailingWhitespace, SelectorFormat, SelectorDepth
+
+@import '_setting/color'; //variables
+@import '_setting/font'; //variables
+@import '_setting/style'; //variables
+@import '_tool/mixin'; //mixin
+@import '_tool/keyframes'; //keyframe
+@import '_base/normalize'; //normalize
+@import '_base/base'; //base
+@import '_layout/l-header'; //header
+@import '_layout/l-body'; //body
+@import '_layout/l-footer'; //footer
+@import '_parts/button'; // button
+@import '_parts/dropdown'; //dropdown
+@import '_parts/heading'; //heading
+@import '_parts/icon'; //icon
+
+// Map legend base
+.map_legend {
+  background: rgba(254, 254, 254, 0.8);
+  position: absolute;
+  bottom: 20px;
+  left: 12px;
+  z-index: 500;
+  padding: 6px;
+  border-radius: 2px;
+  &_title {
+    font-size: 10px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+  }
+  &_table {
+    border-collapse: collapse;
+    .box {
+      border: 1px solid #bbb;
+	  }
+    .text {
+      font-size: 10px;
+      padding-left: 6px;
+	  }
+  }
+}
+
+.leaflet-left { //adjust the zoom in-out position
+  margin-top: 40px;
+}
+
+// Map overlay function
+// .mp-overlay {
+//   position: absolute;
+//   top: 48px;
+//   right: 8px;
+//   z-index: 500;
+//   i {
+//     color: $d-gray;
+//     transition: color 0.5s ease;
+//     line-height: 30px;
+//     width: 100%;
+//     height: 100%;
+//   }
+//   &:hover {
+//     cursor: pointer;
+//     i {
+//       transition: color 0.5s ease;
+//       color: $black;
+//       width: 100%;
+//       height: 100%;
+// 	  }
+//   }
+//   background: rgba(254, 254, 254, 0.8);
+//   border-radius: 2px;
+//   width: 30px;
+//   height: 30px;
+//   text-align: center;
+// }
+
+.mp-layers {
+  background: rgba(254, 254, 254, 0.9);
+  border-radius: 2px;
+  position: absolute;
+  right: 8px;
+  top: 86px;
+  z-index: 500;
+  width: auto;
+  max-width: 300px;
+  min-height: 60px;
+  min-width: 100px;
+  &_list {
+    padding-inline-start: 0;
+    padding: 12px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    &_each {
+      list-style: none;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .control {
+        display: block;
+        position: relative;
+        padding-left: 30px;
+        font-size: 14px;
+        padding-top: 4px;
+        cursor: pointer;
+        input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          &:checked ~ {
+            .control_indicator {
+              transition: background 0.5s ease;
+              background: $vll-orange;
+              &::after {
+                display: block;
+              }
+			      }
+          }
+          &:disabled ~ {
+            .control_indicator {
+              background: $s-gray;
+              pointer-events: none;
+            }
+          }
+        }
+        &_indicator {
+          position: absolute;
+          top: 2px;
+          left: 0;
+          height: 20px;
+          width: 20px;
+          transition: background 0.5s ease;
+          background: $l-gray;
+          &::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 3px;
+            height: 8px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+		      }
+		    }
+        &:hover {
+          input:not([disabled]):checked ~ {
+            .control_indicator {
+              background: $vll-orange;
+            }
+		      }
+          input:checked:focus ~ {
+            .control_indicator {
+              background: $vll-orange;
+		        }
+		      }
+	      }
+	    }
+    }
+  }
+}
+
+// Map 1 (Sports Participation in 2017)
+
+.mp1-tooltip_neighbor {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.mp1-tooltip_moreInfo {
+  display: block;
+  margin-top: 6px;
+}
+
+#mp1-legend {
+  .value4 {
+    .box {
+      background: rgb(215, 48, 31);
+	  }
+  }
+  .value3 {
+    .box {
+      background: rgb(252, 141, 89);
+    }
+  }
+  .value2 {
+    .box {
+      background: rgb(253, 204, 138);
+	  }
+  }
+  .value1 {
+    .box {
+      background: rgb(254, 240, 217);
+    }
+  }
+  .noData {
+    .box {
+      background: rgb(212, 212, 212);
+	  }
+  }
+}
+
+// Line Cart 1 (ports Participation 2006-2017)
+#ln1 {
+  .ln1-tooltip_neighbor {
+    font-weight: bold;
+    //margin-bottom: 6px;
+  }
+  .topMargin { // for safari transform translate issue
+    margin-top: 40px;
+  }
+  .ln1-group {
+    opacity: 0.8;
+    &.in-active {
+      .line {
+        transition: opacity 0.5s ease;
+        opacity: 0.2;
+	    }
+    }
+    .line {
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      fill: none;
+      stroke: rgb(211, 89, 152);
+      stroke-width: 1.5;
+      opacity: 0.6;
+      mix-blend-mode: multiply;
+    }
+    .active {
+      //transition: opacity 1s ease !important;
+      opacity: 1 !important;
+      stroke-width: 3;
+    }
+  }
+  .ln1-yAxis {
+    .tick {
+      line {
+        visibility: hidden;
+      }
+    }
+    path {
+      fill: none;
+      stroke: #fff;
+      shape-rendering: crispEdges;
+    }
+  }
+  .grid line {
+    stroke: #d3d3d3;
+    stroke-dasharray: 3;
+    stroke-opacity: 0.8;
+    shape-rendering: crispEdges;
+  }
+  .grid path {
+    stroke-width: 0;
+    shape-rendering: crispEdges;
+  }
+}
+
+#mp3-legend {
+  .value7 {
+    .box {
+      background: rgb(237, 248, 177);
+    }
+  }
+  .value6 {
+    .box {
+      background: rgb(65, 171, 93);
+    }
+  }
+  .value5 {
+    .box {
+      background: rgb(0, 68, 27);
+	  }
+  }
+  .value4 {
+    .box {
+      background: rgb(173, 221, 142);
+    }
+  }
+  .value3 {
+    .box {
+      background: rgb(247, 252, 185);
+    }
+  }
+  .value2 {
+    .box {
+      background: rgb(199, 233, 180);
+    }
+  }
+  .value1 {
+    .box {
+      background: rgb(35, 132, 67);
+    }
+  }
+  .noData {
+    .box {
+      background: rgb(212, 212, 212);
+    }
+  }
+}
+
+#mp5-legend {
+  padding-left: 16px;
+  .content {
+    width: 140px;
+    height: 12px;
+    background: rgb(0,0,255);
+    background: -webkit-linear-gradient(left, rgba(0,0,255,0.8) 0%, rgba(0,128,0,0.8) 50%, rgba(255,0,0,0.8) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,255,0.8) 0%, rgba(0,128,0,0.8) 50%, rgba(255,0,0,0.8) 100%);
+    background: linear-gradient(to right, rgba(0,0,255,0.8) 0%, rgba(0,128,0,0.8) 50%, rgba(255,0,0,0.8) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0000ff",endColorstr="#ff0000",GradientType=1);
+  }
+  .labels {
+    font-size: 10px;
+    margin-top:2px;
+    &_low {
+      display: inline-block;
+      margin-left: -8px;
+    }
+    &_mod {
+      display: inline-block;
+      padding-left:32px;
+    }
+    &_high {
+      display: inline-block;
+      padding-left:34px;
+    }
+  }
+}
+
+.mp5-tooltip {
+  .content {
+    display: block;
+    margin-top: 6px;
+  }
+  .title {
+    display: inline-block;
+    font-weight: bold;
+    color: $d-gray;
+  }
+  .figure {
+    display: inline-block;
+  }
+  &_street {
+    font-weight: bold;
+  }
+  &_date {
+    font-size: 10px;
+    margin-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+.airbox-dot {
+  pointer-events: auto !important;
+}
+//// Inclusion of Local data ////
+
+// Data from Bennekel (Popup)
+#Bennekel-modal {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  z-index: 9999;
+  margin: 0 auto;
+  left: 50%;
+  margin-left: -300px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 1px 1px 12px $l-gray;
+  &_inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .title {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 20px;
+      margin: 0;
+    }
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      color: $d-gray;
+      &:hover {
+        cursor: pointer;
+        i {
+          transition: color 0.5s ease;
+          color: $black;
+        }
+      }
+    }
+    .bar {
+      fill: #5f89ad;
+    }
+    .axis {
+      font-size: 13px;
+    }
+    .axis path,
+    .axis line {
+      fill: none;
+      display: none;
+    }
+    .label {
+      font-size: 13px;
+	  }
+  }
+}
+
+#mp5-overlay {
+  overflow: visible;
+}
+#mp5-svg {
+  overflow: visible;
+}

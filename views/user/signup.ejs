@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+    
+    <form action="" method="post" class="signup">
+
+      <div class="signup_input">
+
+        <h1 class="title">User Sign Up</h1>
+        <label for="name" class="inputTitle"><b>User Name</b></label>
+        <input type="text" placeholder="Enter user name" name="name" required>
+        <div class="signup_input_errorMsg" style="margin-bottom: 12px;"><%= messageName %></div>
+
+        <label for="email" class="inputTitle"><b>Email</b></label>
+        <input type="text" placeholder="Enter email address" name="email" required>
+        <div class="signup_input_errorMsg" style="margin-bottom: 12px;"><%= messageUser %></div>
+
+        <label for="password" class="inputTitle"><b>Password</b></label>
+        <input type="password" placeholder="Enter password" name="password" required>
+        <div class="signup_input_errorMsg"><%= messagePassword %></div>
+
+        <button type="submit" class="basic-button blue" style="margin-top: 24px;">Sign Up</button>
+       <!--  <label class="rememberme">
+          <input type="checkbox" checked="" name="remember"> Remember me
+        </label> -->
+
+        <div class="signup_input_errorMsg" style="margin-top: 12px;"><%= messageError %></div>
+      </div>
+      
+      <div class="signup_errorMsg" aria-hidden="true">There is an error to sign up. Please try it again</div>
+    </form>
+    
+    <!-- javascripts -->
+    <script src="<%= js %>main.js"></script>
+       
+<%- include('../partials/footer') %>

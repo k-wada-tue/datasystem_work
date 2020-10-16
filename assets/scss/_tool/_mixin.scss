@@ -1,0 +1,40 @@
+//Media Query
+
+@mixin phone {
+  @media (max-width: 599px) { @content; }
+}
+@mixin tablet {
+  @media (min-width: 600px) { @content; }
+}
+@mixin tablet-laptop {
+  @media (min-width: 900px) { @content; }
+}
+@mixin desktop {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin desktop-large {
+  @media (min-width: 1800px) { @content; }
+}
+
+
+//gradation to hide overflow texts
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,444444+100&0+0,1+100 */
+@mixin gradation ($direction1:top, $direction2:bottom, $colorR:255, $colorG:255, $colorB:255) {
+  background: -webkit-linear-gradient($direction1, rgba($colorR,$colorG,$colorB,0) 0%, rgba($colorR,$colorG,$colorB,1) 100%);
+  background: -o-linear-gradient($direction1, rgba($colorR,$colorG,$colorB,0) 0%, rgba($colorR,$colorG,$colorB,1) 100%);
+  background: linear-gradient(to $direction2, rgba($colorR,$colorG,$colorB,0) 0%, rgba($colorR,$colorG,$colorB,1) 100%); /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */ /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}    
+
+@mixin listreset {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+}
+
+@mixin singleline {
+  white-space: nowrap;
+  overflow: hidden;
+}
